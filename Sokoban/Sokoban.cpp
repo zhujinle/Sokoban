@@ -15,8 +15,21 @@
 #define N 40
 using namespace std;
 
+HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+void MoveCursor(int x, int y)
+{
+    COORD pos;
+    pos.X = x; pos.Y = y;
+    SetConsoleCursorPosition(hOut, pos);
+}
+
 void menu()
 {
+    SetConsoleTitle("Sokoban");
+    CONSOLE_CURSOR_INFO Info;
+    Info.bVisible = 0;
+    SetConsoleCursorInfo(hOut, &Info);
     system("cls");
     cout << "      ___           ___           ___           ___           ___           ___           ___     " << endl;
     cout << "     /\\  \\         /\\  \\         /\\__\\         /\\  \\         /\\  \\         /\\  \\         /\\__\\    " << endl;
@@ -29,6 +42,10 @@ void menu()
     cout << "   \\:\\/:/  /     \\:\\/:/  /      |:|  |       \\:\\/:/  /     \\:\\/:/  /        /:/  /       |::/  /  " << endl;
     cout << "    \\::/  /       \\::/  /       |:|  |        \\::/  /       \\::/__/        /:/  /        /:/  /   " << endl;
     cout << "     \\/__/         \\/__/         \\|__|         \\/__/         ~~            \\/__/         \\/__/    " << endl;
+    cout << endl << endl;
+    MoveCursor(20, 13);
+    cout << "请选择" << endl;
+    system("pause");
 }
 
 int main()
