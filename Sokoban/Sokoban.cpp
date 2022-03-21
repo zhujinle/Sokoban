@@ -8,9 +8,11 @@
 #include <iostream>
 #include <string.h>
 #include <windows.h>
+#include <conio.h>
 #ifndef ONLINE_JUDGE
 #define scanf scanf_s
 #define gets gets_s
+#define getch() _getch()
 #endif
 #define N 40
 using namespace std;
@@ -24,13 +26,24 @@ void MoveCursor(int x, int y)
     SetConsoleCursorPosition(hOut, pos);
 }
 
+void menu();
+
+int main()
+{
+    menu();
+    system("pause");
+}
+
 void menu()
 {
-    SetConsoleTitle("Sokoban");
-    CONSOLE_CURSOR_INFO Info;
-    Info.bVisible = 0;
-    SetConsoleCursorInfo(hOut, &Info);
-    system("cls");
+    system("mode con cols=100 lines=34"); //设置窗口大小
+    //隐藏光标
+    CONSOLE_CURSOR_INFO curInfo;
+    curInfo.dwSize = 1;             // 如果没赋值的话，隐藏光标无效  
+    curInfo.bVisible = FALSE;
+    SetConsoleCursorInfo(hOut, &curInfo);
+    SetConsoleTitle("Sokoban"); //设置窗口标题
+    system("cls"); //准备输出Logo
     cout << "      ___           ___           ___           ___           ___           ___           ___     " << endl;
     cout << "     /\\  \\         /\\  \\         /\\__\\         /\\  \\         /\\  \\         /\\  \\         /\\__\\    " << endl;
     cout << "    /::\\  \\       /::\\  \\       /:/  /        /::\\  \\       /::\\  \\       /::\\  \\       /::|  |   " << endl;
@@ -43,17 +56,72 @@ void menu()
     cout << "    \\::/  /       \\::/  /       |:|  |        \\::/  /       \\::/__/        /:/  /        /:/  /   " << endl;
     cout << "     \\/__/         \\/__/         \\|__|         \\/__/         ~~            \\/__/         \\/__/    " << endl;
     cout << endl << endl;
-    MoveCursor(20, 13);
-    cout << "请选择" << endl;
-    system("pause");
+    MoveCursor(38, 13);
+    cout << "请选择你所需要进入的模式";
+    MoveCursor(46, 18);
+    cout << "新 游 戏";
+    MoveCursor(46, 21);
+    cout << "自助选关";
+    MoveCursor(46, 24);
+    cout << "按键说明";
+    MoveCursor(46, 27);
+    cout << "退    出";
+    MoveCursor(38, 33);
+    cout << "COPYRIGHT © 2022 PeterPig";
+    char key;
+    int choice = 18;
+    MoveCursor(43, 18);
+    cout << ">";
+    while (1)
+    {
+        key = getch();
+        switch (key)
+        {
+        case 224:
+            key = getch();
+        case 80:
+            MoveCursor(43, choice);
+            cout << " ";
+            choice += 3;
+            MoveCursor(43, choice);
+            cout << ">";
+            break;
+        case 72:
+            MoveCursor(43, choice);
+            cout << " ";
+            choice -= 3;
+            MoveCursor(43, choice);
+            cout << ">";
+            break;
+        case 13:
+            if (choice == 18)
+                cout << "NEW" << endl;
+            else if (choice == 21)
+                cout << "zizhu" << endl;
+            else if (choice == 24)
+                cout << "说明" << endl;
+            else if (choice == 27)
+                exit(0);
+            break;
+        }
+        if (choice > 27)
+        {
+            MoveCursor(43, choice);
+            cout << " ";
+            choice = 18;
+            MoveCursor(43, choice);
+            cout << ">";
+        }
+        if (choice < 18)
+        {
+            MoveCursor(43, choice);
+            cout << " ";
+            choice = 27;
+            MoveCursor(43, choice);
+            cout << ">";
+        }
+    }
 }
-
-int main()
-{
-    menu();
-
-}
-
 // 入门使用技巧: 
 //   1. 使用解决方案资源管理器窗口添加/管理文件
 //   2. 使用团队资源管理器窗口连接到源代码管理
@@ -85,7 +153,7 @@ int main()
 */
 
 /*
-*       ___           ___           ___           ___           ___           ___           ___     
+*       ___           ___           ___           ___           ___           ___           ___
 *     /\  \         /\  \         /\__\         /\  \         /\  \         /\  \         /\__\
 *    /::\  \       /::\  \       /:/  /        /::\  \       /::\  \       /::\  \       /::|  |
 *   /:/\ \  \     /:/\:\  \     /:/__/        /:/\:\  \     /:/\:\  \     /:/\:\  \     /:|:|  |
@@ -97,14 +165,14 @@ int main()
 *    \::/  /       \::/  /       |:|  |        \::/  /       \::/__/        /:/  /        /:/  /
 *     \/__/         \/__/         \|__|         \/__/         ~~            \/__/         \/__/
 *     http://www.network-science.de/ascii/
-* 
-*   _________       __        ___.                  
+*
+*   _________       __        ___.
 *  /   _____/ ____ |  | ______\_ |__ _____    ____
 *  \_____  \ /  _ \|  |/ /  _ \| __ \\__  \  /    \
 *  /        (  <_> )    <  <_> ) \_\ \/ __ \|   |  \
 * /_______  /\____/|__|_ \____/|___  (____  /___|  /
 *         \/            \/         \/     \/     \/
-* 
-* 
-* 
+*
+*
+*
 */
