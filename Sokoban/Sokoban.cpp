@@ -19,15 +19,39 @@ using namespace std;
 
 HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
+typedef struct  MapData 
+{
+    int map[30][30];
+}MapData;
+typedef struct Node
+{
+    MapData map;
+    struct Node* next;
+}Node;
+
 void MoveCursor(int x, int y);//移动光标
 void menu();//显示菜单，固定窗口，隐藏光标
-void input()
-{
 
+void insertTail(Node* L, MapData x)
+{
+    Node* p = L->next;
+    while (p->next != NULL)
+        p = p->next;
+    p->next = (Node*)malloc(sizeof(Node));
+    p->next->map = x;
+    p->next->next = NULL;
+}//尾插法插入，还未写完
+
+Node* input()
+{
+    Node* L = (Node*)malloc(sizeof(Node));
+    L->next = NULL;//链表头创建完毕
+    //接下去不断获取新的地图然后使用尾插法插入到链表之中
 }
 
 int main()
 {
+
     menu();
     system("pause");
 }
