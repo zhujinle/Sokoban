@@ -19,19 +19,24 @@ using namespace std;
 
 HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-void MoveCursor(int x, int y)
+void MoveCursor(int x, int y);//移动光标
+void menu();//显示菜单，固定窗口，隐藏光标
+void input()
 {
-    COORD pos;
-    pos.X = x; pos.Y = y;
-    SetConsoleCursorPosition(hOut, pos);
-}
 
-void menu();
+}
 
 int main()
 {
     menu();
     system("pause");
+}
+
+void MoveCursor(int x, int y)
+{
+    COORD pos;
+    pos.X = x; pos.Y = y;
+    SetConsoleCursorPosition(hOut, pos);
 }
 
 void menu()
