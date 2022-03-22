@@ -34,67 +34,8 @@ typedef struct Node
 
 void MoveCursor(int x, int y);//移动光标
 void menu();//显示菜单，固定窗口，隐藏光标
+Node* input(); //读入地图
 
-Node* input()
-{
-    Node* p,*L = (Node*)malloc(sizeof(Node));
-    L->next = NULL;//链表头创建完毕
-    //接下去不断获取新的地图然后使用尾插法插入到链表之中
-    char maplink[20] = "Maps\\map001.txt";
-    while (1)
-    {
-        FILE* fp;
-        fopen(&fp,maplink, "r");
-        if (fp == NULL)
-           return L;
-        p = L;
-        while (p->next != NULL)
-            p = p->next;
-        p->next = (Node*)malloc(sizeof(Node));
-        char t[N];
-        while (fscanf(fp,"%s",t) != EOF)
-        {
-            for (int i = 0; t[i] != '\0'; i++)
-            {
-                p->next->map.x = strlen(t);
-                switch (t[i])
-                {
-                    case '@':
-                        p->next->map.map[p->next->map.y][i] = 1;
-                    case '+':
-                        p->next->map.map[p->next->map.y][i] = 2;
-                    case '$':
-                        p->next->map.map[p->next->map.y][i] = 3;
-                    case '*':
-                        p->next->map.map[p->next->map.y][i] = 4;
-                    case '#':
-                        p->next->map.map[p->next->map.y][i] = 5;
-                    case '.':
-                        p->next->map.map[p->next->map.y][i] = 6;
-                    case '-':
-                        p->next->map.map[p->next->map.y][i] = 7;
-                    case ' ':
-                        p->next->map.map[p->next->map.y][i] = 7;
-                }
-            }
-            p->next->map.y++;
-        }
-        p->next->next = NULL;//尾插法插入到链表之中
-        fclose(fp);
-        maplink[10]++;
-        if (maplink[10] == '9' + 1)
-        {
-            maplink[10] = '0';
-            maplink[9]++;
-        }
-        if (maplink[9] == '9' + 1)
-        {
-            maplink[9] = '0';
-            maplink[8]++;
-        }
-    }
-    
-}
 
 int main()
 {
@@ -197,6 +138,77 @@ void menu()
             cout << ">";
         }
     }
+}
+
+Node* input()
+{
+    Node* p, * L = (Node*)malloc(sizeof(Node));
+    L->next = NULL;//链表头创建完毕
+    //接下去不断获取新的地图然后使用尾插法插入到链表之中
+    char maplink[20] = "Maps\\map001.txt";
+    while (1)
+    {
+        FILE* fp;
+        fopen(&fp, maplink, "r");
+        if (fp == NULL)
+            return L;
+        p = L;
+        while (p->next != NULL)
+            p = p->next;
+        p->next = (Node*)malloc(sizeof(Node));
+        p->next->map.y = 0;
+        p->next->map.x = 0;
+        char t[N];
+        while (fscanf(fp, "%s", t, N - 1) != EOF)
+        {
+            for (int i = 0; t[i] != '\0'; i++)
+            {
+                p->next->map.x = strlen(t);
+                switch (t[i])
+                {
+                case '@':
+                    p->next->map.map[p->next->map.y][i] = 1;
+                    break;
+                case '+':
+                    p->next->map.map[p->next->map.y][i] = 2;
+                    break;
+                case '$':
+                    p->next->map.map[p->next->map.y][i] = 3;
+                    break;
+                case '*':
+                    p->next->map.map[p->next->map.y][i] = 4;
+                    break;
+                case '#':
+                    p->next->map.map[p->next->map.y][i] = 5;
+                    break;
+                case '.':
+                    p->next->map.map[p->next->map.y][i] = 6;
+                    break;
+                case '-':
+                    p->next->map.map[p->next->map.y][i] = 7;
+                    break;
+                case ' ':
+                    p->next->map.map[p->next->map.y][i] = 7;
+                    break;
+                }
+            }
+            p->next->map.y++;
+        }
+        p->next->next = NULL;//尾插法插入到链表之中
+        fclose(fp);
+        maplink[10]++;
+        if (maplink[10] == '9' + 1)
+        {
+            maplink[10] = '0';
+            maplink[9]++;
+        }
+        if (maplink[9] == '9' + 1)
+        {
+            maplink[9] = '0';
+            maplink[8]++;
+        }
+    }
+
 }
 // 入门使用技巧: 
 //   1. 使用解决方案资源管理器窗口添加/管理文件
