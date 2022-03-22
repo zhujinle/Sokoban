@@ -14,8 +14,9 @@
 #define gets gets_s
 #define getch _getch
 #define fopen fopen_s
+#define fscanf fscanf_s
 #endif
-#define N 30
+#define N 60
 using namespace std;
 
 HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -46,23 +47,40 @@ Node* input()
         fopen(&fp,maplink, "r");
         if (fp == NULL)
            return L;
-        p = L->next;
+        p = L;
         while (p->next != NULL)
             p = p->next;
         p->next = (Node*)malloc(sizeof(Node));
         char t[N];
-        while (fscanf(fp, "%s", t) != EOF)
+        while (fscanf(fp,"%s",t) != EOF)
         {
             for (int i = 0; t[i] != '\0'; i++)
             {
+                p->next->map.x = strlen(t);
                 switch (t[i])
                 {
-                    case 
+                    case '@':
+                        p->next->map.map[p->next->map.y][i] = 1;
+                    case '+':
+                        p->next->map.map[p->next->map.y][i] = 2;
+                    case '$':
+                        p->next->map.map[p->next->map.y][i] = 3;
+                    case '*':
+                        p->next->map.map[p->next->map.y][i] = 4;
+                    case '#':
+                        p->next->map.map[p->next->map.y][i] = 5;
+                    case '.':
+                        p->next->map.map[p->next->map.y][i] = 6;
+                    case '-':
+                        p->next->map.map[p->next->map.y][i] = 7;
+                    case ' ':
+                        p->next->map.map[p->next->map.y][i] = 7;
                 }
             }
+            p->next->map.y++;
         }
-        p->next->map = x;
         p->next->next = NULL;//尾插法插入到链表之中
+        fclose(fp);
         maplink[10]++;
         if (maplink[10] == '9' + 1)
         {
