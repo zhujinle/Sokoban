@@ -12,16 +12,18 @@
 #ifndef ONLINE_JUDGE
 #define scanf scanf_s
 #define gets gets_s
-#define getch() _getch()
+#define getch _getch
+#define fopen fopen_s
 #endif
-#define N 40
+#define N 30
 using namespace std;
 
 HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
 typedef struct  MapData 
 {
-    int map[30][30];
+    int map[N][N];
+    int x=0, y=0;
 }MapData;
 typedef struct Node
 {
@@ -32,26 +34,53 @@ typedef struct Node
 void MoveCursor(int x, int y);//移动光标
 void menu();//显示菜单，固定窗口，隐藏光标
 
-void insertTail(Node* L, MapData x)
-{
-    Node* p = L->next;
-    while (p->next != NULL)
-        p = p->next;
-    p->next = (Node*)malloc(sizeof(Node));
-    p->next->map = x;
-    p->next->next = NULL;
-}//尾插法插入，还未写完
-
 Node* input()
 {
-    Node* L = (Node*)malloc(sizeof(Node));
+    Node* p,*L = (Node*)malloc(sizeof(Node));
     L->next = NULL;//链表头创建完毕
     //接下去不断获取新的地图然后使用尾插法插入到链表之中
+    char maplink[20] = "Maps\\map001.txt";
+    while (1)
+    {
+        FILE* fp;
+        fopen(&fp,maplink, "r");
+        if (fp == NULL)
+           return L;
+        p = L->next;
+        while (p->next != NULL)
+            p = p->next;
+        p->next = (Node*)malloc(sizeof(Node));
+        char t[N];
+        while (fscanf(fp, "%s", t) != EOF)
+        {
+            for (int i = 0; t[i] != '\0'; i++)
+            {
+                switch (t[i])
+                {
+                    case 
+                }
+            }
+        }
+        p->next->map = x;
+        p->next->next = NULL;//尾插法插入到链表之中
+        maplink[10]++;
+        if (maplink[10] == '9' + 1)
+        {
+            maplink[10] = '0';
+            maplink[9]++;
+        }
+        if (maplink[9] == '9' + 1)
+        {
+            maplink[9] = '0';
+            maplink[8]++;
+        }
+    }
+    
 }
 
 int main()
 {
-
+    Node* Maps = input();
     menu();
     system("pause");
 }

@@ -141,6 +141,10 @@
   <ItemGroup>
     <ClCompile Include="Sokoban.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="x64\Debug\Maps\map01.txt" />
+    <Text Include="x64\Debug\Maps\map02.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
