@@ -38,12 +38,14 @@ void menu();//显示菜单，固定窗口，隐藏光标
 Node* input(); //读入地图
 void color(unsigned short color);//修改控制台文字颜色
 void print(); //输出提示框和地图框
+void print_map(MapData map); //刷新地图
 
 
 int main()
 {
     Node* Maps = input();
     menu();
+    print_map(Maps->next->map);//每次使用这个刷新地图
     system("pause");
 }
 
@@ -120,7 +122,10 @@ void menu()
             break;
         case 13:
             if (choice == 18)
+            {
                 print();
+                return;
+            }
             else if (choice == 21)
                 cout << "zizhu" << endl;
             else if (choice == 24)
@@ -171,36 +176,36 @@ Node* input()
         {
             for (int i = 0; t[i] != '\0'; i++)
             {
-                p->next->map.x = strlen(t);
+                p->next->map.y = strlen(t);
                 switch (t[i])
                 {
                 case '@':
-                    p->next->map.map[p->next->map.y][i] = 1;
+                    p->next->map.map[p->next->map.x][i] = 1;
                     break;
                 case '+':
-                    p->next->map.map[p->next->map.y][i] = 2;
+                    p->next->map.map[p->next->map.x][i] = 2;
                     break;
                 case '$':
-                    p->next->map.map[p->next->map.y][i] = 3;
+                    p->next->map.map[p->next->map.x][i] = 3;
                     break;
                 case '*':
-                    p->next->map.map[p->next->map.y][i] = 4;
+                    p->next->map.map[p->next->map.x][i] = 4;
                     break;
                 case '#':
-                    p->next->map.map[p->next->map.y][i] = 5;
+                    p->next->map.map[p->next->map.x][i] = 5;
                     break;
                 case '.':
-                    p->next->map.map[p->next->map.y][i] = 6;
+                    p->next->map.map[p->next->map.x][i] = 6;
                     break;
                 case '-':
-                    p->next->map.map[p->next->map.y][i] = 7;
+                    p->next->map.map[p->next->map.x][i] = 7;
                     break;
                 case ' ':
-                    p->next->map.map[p->next->map.y][i] = 7;
+                    p->next->map.map[p->next->map.x][i] = 7;
                     break;
                 }
             }
-            p->next->map.y++;
+            p->next->map.x++;
         }
         p->next->next = NULL;//尾插法插入到链表之中
         fclose(fp);
@@ -273,8 +278,44 @@ void print()
     cout << "Have fun & Good luck ! ";
     MoveCursor(startx + 52, starty + 15);
     cout << "Powered by PeterPig";
+    return;
 }
 
+void print_map(MapData map)
+{
+    for (int i = 0; i < map.x; i++)
+    {
+        MoveCursor(startx + 2, starty + i + 1);
+        for (int j = 0; j < map.y; j++)
+        {
+            switch (map.map[i][j])
+            {
+            case 1:
+                cout << "♀";
+                break;
+            case 2:
+                cout << "@";
+                break;
+            case 3:
+                cout << "□";
+                break;
+            case 4:
+                cout << "★";
+                break;
+            case 5:
+                cout << "■";
+                break;
+            case 6:
+                cout << "×";
+                break;
+            case 7:
+                cout << "  ";
+                break;
+            }
+        }
+    }
+    return;
+}
 // 入门使用技巧: 
 //   1. 使用解决方案资源管理器窗口添加/管理文件
 //   2. 使用团队资源管理器窗口连接到源代码管理
