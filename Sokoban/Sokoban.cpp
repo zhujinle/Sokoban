@@ -19,6 +19,7 @@
 #define N 60
 using namespace std;
 
+int startx = 10, starty = 6;
 HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
 typedef struct  MapData 
@@ -35,6 +36,8 @@ typedef struct Node
 void MoveCursor(int x, int y);//移动光标
 void menu();//显示菜单，固定窗口，隐藏光标
 Node* input(); //读入地图
+void color(unsigned short color);//修改控制台文字颜色
+void print(); //输出提示框和地图框
 
 
 int main()
@@ -49,6 +52,11 @@ void MoveCursor(int x, int y)
     COORD pos;
     pos.X = x; pos.Y = y;
     SetConsoleCursorPosition(hOut, pos);
+}
+
+void color(unsigned short color)
+{
+    SetConsoleTextAttribute(hOut, color);
 }
 
 void menu()
@@ -112,7 +120,7 @@ void menu()
             break;
         case 13:
             if (choice == 18)
-                cout << "NEW" << endl;
+                print();
             else if (choice == 21)
                 cout << "zizhu" << endl;
             else if (choice == 24)
@@ -210,6 +218,63 @@ Node* input()
     }
 
 }
+
+void print()
+{
+    system("cls");
+    //画地图的框
+    MoveCursor(startx, starty);
+    for (int i = 0; i < 22; i++)
+        cout << "==";
+    MoveCursor(startx, starty + 1);
+    for (int i = 1; i <= 15; i++)
+    {
+        cout << "||";
+        for (int j = 0; j < 20; j++)
+            cout << "  ";
+        cout << "||";
+        MoveCursor(startx, starty + i + 1);
+    }
+    for (int i = 0; i < 22; i++)
+        cout << "==";
+    //画提示的框
+    color(2);
+    MoveCursor(startx + 50, starty);
+    for (int i = 0; i < 16; i++)
+        cout << "--";
+    MoveCursor(startx + 50, starty + 1);
+    for (int i = 1; i <= 15; i++)
+    {
+        cout << "| ";
+        for (int j = 0; j < 14; j++)
+            cout << "  ";
+        cout << " |";
+        MoveCursor(startx + 50, starty + i + 1);
+    }
+    for (int i = 0; i < 16; i++)
+        cout << "--";
+    MoveCursor(startx + 52, starty + 2);
+    cout << "W->上移     S->下移";
+    MoveCursor(startx + 52, starty + 3);
+    cout << "A->左移     D->右移";
+    MoveCursor(startx + 52, starty + 5);
+    cout << "小人 --> ♀";
+    MoveCursor(startx + 52, starty + 6);
+    cout << "箱子 --> □";
+    MoveCursor(startx + 52, starty + 7);
+    cout << "目标-- > ×";
+    MoveCursor(startx + 52, starty + 8);
+    cout << "墙壁-- > ■";
+    MoveCursor(startx + 52, starty + 9);
+    cout << "玩家站在目标区域-- > @";
+    MoveCursor(startx + 52, starty + 10);
+    cout << "箱子放在目标区域-- > ★";
+    MoveCursor(startx + 52, starty + 12);
+    cout << "Have fun & Good luck ! ";
+    MoveCursor(startx + 52, starty + 15);
+    cout << "Powered by PeterPig";
+}
+
 // 入门使用技巧: 
 //   1. 使用解决方案资源管理器窗口添加/管理文件
 //   2. 使用团队资源管理器窗口连接到源代码管理
@@ -239,7 +304,6 @@ Node* input()
  *          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *                     佛祖保佑        永无BUG
 */
-
 /*
 *       ___           ___           ___           ___           ___           ___           ___
 *     /\  \         /\  \         /\__\         /\  \         /\  \         /\  \         /\__\
