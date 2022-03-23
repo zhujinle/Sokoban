@@ -59,7 +59,7 @@ void menu()
     curInfo.dwSize = 1;             // 如果没赋值的话，隐藏光标无效  
     curInfo.bVisible = FALSE;
     SetConsoleCursorInfo(hOut, &curInfo);
-    SetConsoleTitle("Sokoban"); //设置窗口标题
+    system("title Sokoban");//设置窗口标题
     system("cls"); //准备输出Logo
     cout << "      ___           ___           ___           ___           ___           ___           ___     " << endl;
     cout << "     /\\  \\         /\\  \\         /\\__\\         /\\  \\         /\\  \\         /\\  \\         /\\__\\    " << endl;
