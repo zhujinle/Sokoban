@@ -34,18 +34,38 @@ typedef struct Node
 }Node;
 
 void MoveCursor(int x, int y);//移动光标
-void menu();//显示菜单，固定窗口，隐藏光标
+void menu(Node* Maps);//显示菜单，固定窗口，隐藏光标
 Node* input(); //读入地图
 void color(unsigned short color);//修改控制台文字颜色
 void print(); //输出提示框和地图框
 void print_map(MapData map); //刷新地图
+bool check(MapData map,int x,int y)
+{
+    for (int i = 0; i < map.x; i++)
+        for (int j = 0; i < map.y; j++)
+            if (map.map[i][j] == 3)
+                return false;
+    return true;
+}
+void play(Node* map)
+{
+    if (map == NULL)
+        return;
+    print();
+    while (!check(map->map,map->map.x,map->map.y))//判断是否完成
+    {
+        print_map(map->map);
+    }
+    play(map->next);
+    return;
+}
 
 
 int main()
 {
     Node* Maps = input();
-    menu();
-    print_map(Maps->next->map);//每次使用这个刷新地图
+    menu(Maps);
+    //print_map(Maps->next->map);//每次使用这个刷新地图
     system("pause");
 }
 
@@ -61,7 +81,7 @@ void color(unsigned short color)
     SetConsoleTextAttribute(hOut, color);
 }
 
-void menu()
+void menu(Node* Maps)
 {
     system("mode con cols=100 lines=34"); //设置窗口大小
     //隐藏光标
@@ -123,7 +143,7 @@ void menu()
         case 13:
             if (choice == 18)
             {
-                print();
+                play(Maps->next);
                 return;
             }
             else if (choice == 21)
@@ -221,7 +241,6 @@ Node* input()
             maplink[8]++;
         }
     }
-
 }
 
 void print()
