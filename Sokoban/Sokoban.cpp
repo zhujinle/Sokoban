@@ -20,6 +20,7 @@
 using namespace std;
 
 int startx = 10, starty = 6;
+int man_x, man_y;
 HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
 typedef struct  MapData 
@@ -42,18 +43,235 @@ void print_map(MapData map); //刷新地图
 bool check(MapData map,int x,int y)
 {
     for (int i = 0; i < map.x; i++)
-        for (int j = 0; i < map.y; j++)
+        for (int j = 0; j < map.y; j++)
             if (map.map[i][j] == 3)
                 return false;
     return true;
+}
+void move(MapData* map)
+{
+    //获取人物位置
+    int x=0, y=0;
+    for (int i = 0; i < (*map).x; i++)
+        for (int j = 0; j < (*map).y; j++)
+            if ((*map).map[i][j] == 1|| (*map).map[i][j] == 2)
+            {
+                x = i; y = j;
+            }
+    //获取按键与移动
+    char key;
+    key = getch();
+    switch (key)
+    {
+        case 224:
+            key = getch();
+        case 80: //下
+            if ((*map).map[x + 1][y] == 7)
+            {
+                (*map).map[x + 1][y] = 1;
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            else if ((*map).map[x + 1][y] == 6)
+            {
+                (*map).map[x + 1][y] = 2;
+                (*map).map[x][y] = 7;
+            }
+            else if ((*map).map[x + 1][y] == 3 && ((*map).map[x + 2][y] == 7 || (*map).map[x + 2][y] == 6))
+            {
+                if ((*map).map[x + 2][y] == 6)
+                {
+                    (*map).map[x + 2][y] = 4;
+                    (*map).map[x + 1][y] = 1;
+                }
+                else if ((*map).map[x + 2][y] == 7)
+                {
+                    (*map).map[x + 2][y] = 3;
+                    (*map).map[x + 1][y] = 1;
+                }
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            else if ((*map).map[x + 1][y] == 4 && ((*map).map[x + 2][y] == 7 || (*map).map[x + 2][y] == 6))
+            {
+                if ((*map).map[x + 2][y] == 6)
+                {
+                    (*map).map[x + 2][y] = 4;
+                    (*map).map[x + 1][y] = 2;
+                }
+                else if ((*map).map[x + 2][y] == 7)
+                {
+                    (*map).map[x + 2][y] = 3;
+                    (*map).map[x + 1][y] = 2;
+                }
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            break;
+        case 72: //上
+            if ((*map).map[x - 1][y] == 7)
+            {
+                (*map).map[x - 1][y] = 1;
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            else if ((*map).map[x - 1][y] == 6)
+            {
+                (*map).map[x - 1][y] = 2;
+                (*map).map[x][y] = 7;
+            }
+            else if ((*map).map[x - 1][y] == 3 && ((*map).map[x - 2][y] == 7 || (*map).map[x - 2][y] == 6))
+            {
+                if ((*map).map[x - 2][y] == 6)
+                {
+                    (*map).map[x - 2][y] = 4;
+                    (*map).map[x - 1][y] = 1;
+                }
+                else if ((*map).map[x - 2][y] == 7)
+                {
+                    (*map).map[x - 2][y] = 3;
+                    (*map).map[x - 1][y] = 1;
+                }
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            else if ((*map).map[x - 1][y] == 4 && ((*map).map[x - 2][y] == 7 || (*map).map[x - 2][y] == 6))
+            {
+                if ((*map).map[x - 2][y] == 6)
+                {
+                    (*map).map[x - 2][y] = 4;
+                    (*map).map[x - 1][y] = 2;
+                }
+                else if ((*map).map[x - 2][y] == 7)
+                {
+                    (*map).map[x - 2][y] = 3;
+                    (*map).map[x - 1][y] = 2;
+                }
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            break;
+        case 77: //右
+            if ((*map).map[x][y+1] == 7)
+            {
+                (*map).map[x][y+1] = 1;
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            else if ((*map).map[x][y+1] == 6)
+            {
+                (*map).map[x][y+1] = 2;
+                (*map).map[x][y] = 7;
+            }
+            else if ((*map).map[x][y+1] == 3 && ((*map).map[x][y+2] == 7 || (*map).map[x][y+ 2] == 6))
+            {
+                if ((*map).map[x][y + 2] == 6)
+                {
+                    (*map).map[x][y + 2] = 4;
+                    (*map).map[x][y + 1] = 1;
+                }
+                else if ((*map).map[x][y+2] == 7)
+                {
+                    (*map).map[x][y + 2] = 3;
+                    (*map).map[x][y + 1] = 1;
+                }
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            else if ((*map).map[x][y + 1] == 4 && ((*map).map[x][y + 2] == 7 || (*map).map[x][y + 2] == 6))
+            {
+                if ((*map).map[x][y + 2] == 6)
+                {
+                    (*map).map[x][y + 2] = 4;
+                    (*map).map[x][y + 1] = 2;
+                }
+                else if ((*map).map[x][y + 2] == 7)
+                {
+                    (*map).map[x][y + 2] = 3;
+                    (*map).map[x][y + 1] = 2;
+                }
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            break;
+        case 75: //左
+            if ((*map).map[x][y - 1] == 7)
+            {
+                (*map).map[x][y - 1] = 1;
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            else if ((*map).map[x][y - 1] == 6)
+            {
+                (*map).map[x][y - 1] = 2;
+                (*map).map[x][y] = 7;
+            }
+            else if ((*map).map[x][y - 1] == 3 && ((*map).map[x][y - 2] == 7 || (*map).map[x][y - 2] == 6))
+            {
+                if ((*map).map[x][y - 2] == 6)
+                {
+                    (*map).map[x][y - 2] = 4;
+                    (*map).map[x][y - 1] = 1;
+                }
+                else if ((*map).map[x][y-2] == 7)
+                {
+                    (*map).map[x][y - 2] = 3;
+                    (*map).map[x][y - 1] = 1;
+                }
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            else if ((*map).map[x][y - 1] == 4 && ((*map).map[x][y - 2] == 7 || (*map).map[x][y - 2] == 6))
+            {
+                if ((*map).map[x][y - 2] == 6)
+                {
+                    (*map).map[x][y - 2] = 4;
+                    (*map).map[x][y - 1] = 2;
+                }
+                else if ((*map).map[x][y - 2] == 7)
+                {
+                    (*map).map[x][y - 2] = 3;
+                    (*map).map[x][y - 1] = 2;
+                }
+                if ((*map).map[x][y] == 1)
+                    (*map).map[x][y] = 7;
+                else if ((*map).map[x][y] == 2)
+                    (*map).map[x][y] = 6;
+            }
+            break;
+    }
 }
 void play(Node* map)
 {
     if (map == NULL)
         return;
     print();
+    print_map(map->map);
     while (!check(map->map,map->map.x,map->map.y))//判断是否完成
     {
+        move(&(map->map));
         print_map(map->map);
     }
     play(map->next);
@@ -65,6 +283,7 @@ int main()
 {
     Node* Maps = input();
     menu(Maps);
+    cout << "已然结束" << endl;
     //print_map(Maps->next->map);//每次使用这个刷新地图
     system("pause");
 }
@@ -313,7 +532,7 @@ void print_map(MapData map)
                 cout << "♀";
                 break;
             case 2:
-                cout << "@";
+                cout << "@ ";
                 break;
             case 3:
                 cout << "□";
