@@ -619,14 +619,14 @@ void select(Node* map)
     cin >> n;
     if (!(n >= '1' && n <= '9'))
     {
-        MessageBox(NULL, (LPCSTR)"关卡数错误，请重新填写！", (LPCSTR)"请重新填写", MB_ICONERROR);
+        MessageBoxA(NULL, "关卡数错误，请重新填写！", "请重新填写", MB_ICONERROR);
         return;
     }
     for (int i = 1; i <= n - '0'; i++)
     {
         if (map == NULL)
         {
-            MessageBox(NULL, (LPCSTR)"关卡数错误，请重新填写！", (LPCSTR)"请重新填写", MB_ICONERROR);
+            MessageBoxA(NULL, "关卡数错误，请重新填写！", "请重新填写", MB_ICONERROR);
             return;
         }
         map = map->next;
