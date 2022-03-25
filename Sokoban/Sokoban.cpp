@@ -43,12 +43,16 @@ void print_map(MapData map); //刷新地图
 bool check(MapData map, int x, int y); //检查关卡是否已经完成
 void move(MapData* map); //移动人物
 void play(Node* map); //开启游戏
+void select(Node* map);
 
 
 int main()
 {
     Node* Maps = input();
-    menu(Maps);
+    while (1)
+    {
+        menu(Maps);
+    }
     cout << "已然结束" << endl;
     //print_map(Maps->next->map);//每次使用这个刷新地图
     system("pause");
@@ -132,7 +136,10 @@ void menu(Node* Maps)
                 return;
             }
             else if (choice == 21)
-                cout << "zizhu" << endl;
+            {
+                select(Maps);
+                return;
+            }
             else if (choice == 24)
                 cout << "说明" << endl;
             else if (choice == 27)
@@ -559,6 +566,47 @@ bool check(MapData map, int x, int y)
             if (map.map[i][j] == 3)
                 return false;
     return true;
+}
+
+void select(Node* map)
+{
+    system("cls");//先清屏
+    //画框
+    MoveCursor(31, 11);
+    for (int i = 0; i < 19; i++)
+        cout << "==";
+    MoveCursor(31, 11 + 1);
+    for (int i = 1; i <= 7; i++)
+    {
+        cout << "||";
+        for (int j = 0; j < 17; j++)
+            cout << "  ";
+        cout << "||";
+        MoveCursor(31, 11 + i + 1);
+    }
+    for (int i = 0; i < 19; i++)
+        cout << "==";
+    MoveCursor(36, 13);
+    cout << "请输入你所要游玩的关卡编号:";
+    MoveCursor(50, 16);
+    char n;
+    cin >> n;
+    if (!(n >= '1' && n <= '9'))
+    {
+        MessageBox(NULL, "关卡数错误，请重新填写！", "请重新填写", MB_ICONERROR);
+        return;
+    }
+    for (int i = 1; i <= n - '0'; i++)
+    {
+        if (map == NULL)
+        {
+            MessageBox(NULL, "关卡数错误，请重新填写！", "请重新填写", MB_ICONERROR);
+            return;
+        }
+        map = map->next;
+    }
+    play(map);
+    return;
 }
 // 入门使用技巧: 
 //   1. 使用解决方案资源管理器窗口添加/管理文件
