@@ -43,7 +43,29 @@ void print_map(MapData map); //刷新地图
 bool check(MapData map, int x, int y); //检查关卡是否已经完成
 void move(MapData* map); //移动人物
 void play(Node* map); //开启游戏
-void select(Node* map);
+void select(Node* map);//用于选择关卡
+void shuoming()
+{
+    system("cls");
+    //画框
+    MoveCursor(2, 2);
+    for (int i = 0; i < 40; i++)
+        cout << "==";
+    MoveCursor(2, 2 + 1);
+    for (int i = 1; i <= 17; i++)
+    {
+        cout << "||";
+        for (int j = 0; j < 48; j++)
+            cout << "  ";
+        cout << "||";
+        MoveCursor(2, 2 + i + 1);
+    }
+    for (int i = 0; i < 40; i++)
+        cout << "==";
+    MoveCursor(2, 2);
+    cout << "经典的推箱子是一个来自日本的古老游戏，目的是在训练你的逻辑思考能力。在一个狭小的仓库中，要求把木箱放到指定的位置，稍不小心就会出现箱子无法移动或者通道被堵住的情况，所以需要巧妙的利用有限的空间和通道，合理安排移动的次序和位置，才能顺利的完成任务。";
+    system("pause");
+}
 
 
 int main()
@@ -141,7 +163,10 @@ void menu(Node* Maps)
                 return;
             }
             else if (choice == 24)
-                cout << "说明" << endl;
+            {
+                shuoming();
+                return;
+            }
             else if (choice == 27)
                 exit(0);
             break;
@@ -289,6 +314,7 @@ void print()
     cout << "Have fun & Good luck ! ";
     MoveCursor(startx + 52, starty + 15);
     cout << "Powered by PeterPig";
+    color(15);
     return;
 }
 
