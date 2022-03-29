@@ -30,10 +30,16 @@
 5. 玩家站在目标区域--> `@`
 6. 箱子放在目标区域--> `★`
 
+小彩蛋：
+那个皮卡丘超可爱的~
+
 ---
 ## 迭代日志
 ### v0.1
 
     创建了 ReadMe.md 文件，建立了基本的 Visual Studio 工程文件，作为接下去开发的基础。
+### v0.2
+
+    加入了小彩蛋哈哈哈哈哈
 ---
 本项目使用 `WTFPL` 即 `Do What The Fuck You Want To Public License` 协议进行授权，本协议内容可见[dtf0/wtfpl](https://github.com/dtf0/wtfpl).

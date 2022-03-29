@@ -44,78 +44,12 @@ bool check(MapData map, int x, int y); //检查关卡是否已经完成
 void move(MapData* map); //移动人物
 void play(Node* map); //开启游戏
 void select(Node* map);//用于选择关卡
-void shuoming()
-{
-    system("cls");
-    //画框
-    MoveCursor(2, 2);
-    for (int i = 0; i < 48; i++)
-        cout << "==";
-    MoveCursor(2, 2 + 1);
-    for (int i = 1; i <= 18; i++)
-    {
-        cout << "||";
-        for (int j = 0; j < 46; j++)
-            cout << "  ";
-        cout << "||";
-        MoveCursor(2, 2 + i + 1);
-    }
-    for (int i = 0; i < 48; i++)
-        cout << "==";
-    MoveCursor(4, 4);
-    cout << "    经典的推箱子是一个来自日本的古老游戏，目的是在训练你的逻辑思考能力。在一个狭小的仓库中，";
-    MoveCursor(4, 5);
-    cout << "要求把木箱放到指定的位置，稍不小心就会出现箱子无法移动或者通道被堵住的情况，所以需要巧妙的利";
-    MoveCursor(4, 6);
-    cout<<"用有限的空间和通道，合理安排移动的次序和位置，才能顺利的完成任务。";
-    color(14);
-    MoveCursor(60, 8);
-    cout << "　　/\\　　　   ∠ /";
-    MoveCursor(60, 9);
-    cout << "　 /　│　　  ／　／";
-    MoveCursor(60, 10);
-    cout << "　│　   ＿,＜　／　    /`ヽ";
-    MoveCursor(60, 11);
-    cout << "　│　　　　　ヽ　　   /　　〉";
-    MoveCursor(60, 12);
-    cout << "　 Y　　　    　`  /　　/";
-    MoveCursor(60, 13);
-    cout << "　ィ●　.　●　　O〈　　/";
-    MoveCursor(60, 14);
-    cout << "　()　 へ　　　　|　\\  〈";
-    MoveCursor(60, 15);
-    cout << "　 / へ　　 /　/＜|   \\  \\";
-    MoveCursor(60, 16);
-    cout << "　　>- 、_　 ィ　 │  ／／";
-    MoveCursor(60, 17);
-    cout << "　 / へ　　 /　/＜|  \\ \\";
-    MoveCursor(60, 18);
-    cout << "　 ヽ_/　　(_／　 │ ／／";
-    MoveCursor(60, 19);
-    cout << "　　7　　　　　　　|／";
-    MoveCursor(60, 20);
-    cout << "　　＞―r￣￣`-―＿丿";
-    MoveCursor(44, 27);
-    color(7);
-    system("pause");
-}
-/*
-* 　　/＼7　　　 ∠ /
-　 /　│　　 ／　／
-　│　Z ＿,＜　／　　 /`ヽ
-　│　　　　　ヽ　　 /　　〉
-　 Y　　　　　`　 /　　/
-　ｲ●　､　●　　⊂⊃〈　　/
-　()　 へ　　　　|　＼〈
-　　>ｰ ､_　 ィ　 │ ／／
-　 / へ　　 /　ﾉ＜| ＼＼
-　 ヽ_ﾉ　　(_／　 │／／
-　　7　　　　　　　|／
-　　＞―r￣￣`ｰ―＿丿
-*/
+void shuoming(); //显示按键说明
+void win();  //显示胜利信息
 
 int main()
 {
+    start:
     Node* Maps = input();
     while (1)
     {
@@ -140,6 +74,7 @@ void color(unsigned short color)
 
 void menu(Node* Maps)
 {
+    Maps = input();
     system("mode con cols=100 lines=34"); //设置窗口大小
     //隐藏光标
     CONSOLE_CURSOR_INFO curInfo;
@@ -161,7 +96,9 @@ void menu(Node* Maps)
     cout << "     \\/__/         \\/__/         \\|__|         \\/__/         ~~            \\/__/         \\/__/    " << endl;
     cout << endl << endl;
     MoveCursor(38, 13);
+    color(14);
     cout << "请选择你所需要进入的模式";
+    color(7);
     MoveCursor(46, 18);
     cout << "新 游 戏";
     MoveCursor(46, 21);
@@ -171,7 +108,9 @@ void menu(Node* Maps)
     MoveCursor(46, 27);
     cout << "退    出";
     MoveCursor(38, 33);
-    cout << "COPYRIGHT © 2022 PeterPig";
+    color(8);
+    cout << "COPYRIGHT @ 2022 PeterPig";
+    color(7);
     char key;
     int choice = 18;
     MoveCursor(43, 18);
@@ -619,7 +558,10 @@ void move(MapData* map)
 void play(Node* map)
 {
     if (map == NULL)
+    {
+        win();
         return;
+    }
     print();
     print_map(map->map);
     while (!check(map->map, map->map.x, map->map.y))//判断是否完成
@@ -642,6 +584,8 @@ bool check(MapData map, int x, int y)
 
 void select(Node* map)
 {
+    map = input();
+    //map = map->next;
     system("cls");//先清屏
     //画框
     MoveCursor(31, 11);
@@ -680,6 +624,108 @@ void select(Node* map)
     play(map);
     return;
 }
+
+void win()
+{
+    system("cls");
+    //画框
+    MoveCursor(31, 11);
+    for (int i = 0; i < 19; i++)
+        cout << "==";
+    MoveCursor(31, 11 + 1);
+    for (int i = 1; i <= 7; i++)
+    {
+        cout << "||";
+        for (int j = 0; j < 17; j++)
+            cout << "  ";
+        cout << "||";
+        MoveCursor(31, 11 + i + 1);
+    }
+    for (int i = 0; i < 19; i++)
+        cout << "==";
+    MoveCursor(36, 13);
+    cout << "恭喜你，已经全部通关了~";
+    MessageBoxA(NULL, "恭喜你，已经全部通关了~", "Congratulations!", MB_ICONASTERISK);
+    MoveCursor(44, 27);
+    system("pause");
+}
+
+void shuoming()
+{
+    system("cls");
+    //画框
+    MoveCursor(2, 2);
+    for (int i = 0; i < 48; i++)
+        cout << "==";
+    MoveCursor(2, 2 + 1);
+    for (int i = 1; i <= 18; i++)
+    {
+        cout << "||";
+        for (int j = 0; j < 46; j++)
+            cout << "  ";
+        cout << "||";
+        MoveCursor(2, 2 + i + 1);
+    }
+    for (int i = 0; i < 48; i++)
+        cout << "==";
+    MoveCursor(4, 4);
+    cout << "    经典的推箱子是一个来自日本的古老游戏，目的是在训练你的逻辑思考能力。在一个狭小的仓库中，";
+    MoveCursor(4, 5);
+    cout << "要求把木箱放到指定的位置，稍不小心就会出现箱子无法移动或者通道被堵住的情况，所以需要巧妙的利";
+    MoveCursor(4, 6);
+    cout << "用有限的空间和通道，合理安排移动的次序和位置，才能顺利的完成任务。";
+    color(14);
+    MoveCursor(60, 8);
+    cout << "　　/\\　　　   ∠ /";
+    MoveCursor(60, 9);
+    cout << "　 /　│　　  ／　／";
+    MoveCursor(60, 10);
+    cout << "　│　 Z ＿,＜　／　    /`ヽ";
+    MoveCursor(60, 11);
+    cout << "　│　　　　　ヽ　　   /　　〉";
+    MoveCursor(60, 12);
+    cout << "　 Y　　　    　`    /　　/";
+    MoveCursor(60, 13);
+    cout << "　ィ●　.　●　　O <    /";
+    MoveCursor(60, 14);
+    cout << "　()　 へ　　　　|　\\  〈";
+    MoveCursor(60, 15);
+    cout << "　 /   　　 /　/＜|   \\  \\";
+    MoveCursor(60, 16);
+    cout << "　　>- 、_　 ィ　 │  ／／";
+    MoveCursor(60, 17);
+    cout << "　 / へ　　 /　/＜|  \\ \\";
+    MoveCursor(60, 18);
+    cout << "　 ヽ_/　　(_／　 │ ／／";
+    MoveCursor(60, 19);
+    cout << "　　7　　　　　　　|／";
+    MoveCursor(60, 20);
+    cout << "　　＞―r￣￣`-―＿丿";
+    color(7);
+    MoveCursor(7, 9);
+    cout << "W->上移     S->下移";
+    MoveCursor(7, 10);
+    cout << "A->左移     D->右移";
+    MoveCursor(7, 11);
+    cout << "小人 --> ♀";
+    MoveCursor(7, 12);
+    cout << "箱子 --> □";
+    MoveCursor(7, 13);
+    cout << "目标-- > ×";
+    MoveCursor(7, 14);
+    cout << "墙壁-- > ■";
+    MoveCursor(7, 15);
+    cout << "玩家站在目标区域-- > @";
+    MoveCursor(7, 16);
+    cout << "箱子放在目标区域-- > ★";
+    MoveCursor(7, 19);
+    cout << "Have fun & Good luck ! ";
+    MoveCursor(7, 20);
+    cout << "Powered by PeterPig";
+    MoveCursor(44, 27);
+    system("pause");
+}
+
 // 入门使用技巧: 
 //   1. 使用解决方案资源管理器窗口添加/管理文件
 //   2. 使用团队资源管理器窗口连接到源代码管理
