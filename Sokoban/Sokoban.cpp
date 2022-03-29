@@ -68,6 +68,7 @@ void shuoming()
     cout << "要求把木箱放到指定的位置，稍不小心就会出现箱子无法移动或者通道被堵住的情况，所以需要巧妙的利";
     MoveCursor(4, 6);
     cout<<"用有限的空间和通道，合理安排移动的次序和位置，才能顺利的完成任务。";
+    color(14);
     MoveCursor(60, 8);
     cout << "　　/\\　　　   ∠ /";
     MoveCursor(60, 9);
@@ -77,7 +78,7 @@ void shuoming()
     MoveCursor(60, 11);
     cout << "　│　　　　　ヽ　　   /　　〉";
     MoveCursor(60, 12);
-    cout << "　 Y　　　　　`　   /　　/";
+    cout << "　 Y　　　    　`  /　　/";
     MoveCursor(60, 13);
     cout << "　ィ●　.　●　　O〈　　/";
     MoveCursor(60, 14);
@@ -95,6 +96,7 @@ void shuoming()
     MoveCursor(60, 20);
     cout << "　　＞―r￣￣`-―＿丿";
     MoveCursor(44, 27);
+    color(7);
     system("pause");
 }
 /*
