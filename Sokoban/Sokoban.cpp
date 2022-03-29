@@ -22,7 +22,6 @@ using namespace std;
 int startx = 10, starty = 6;
 int man_x, man_y;
 HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
 typedef struct  MapData 
 {
     int map[N][N];
@@ -55,9 +54,7 @@ int main()
     {
         menu(Maps);
     }
-    cout << "已然结束" << endl;
-    //print_map(Maps->next->map);//每次使用这个刷新地图
-    system("pause");
+    return 0;
 }
 
 void MoveCursor(int x, int y)
@@ -120,41 +117,41 @@ void menu(Node* Maps)
         key = getch();
         switch (key)
         {
-        case 224:
-            key = getch();
-        case 80:
-            MoveCursor(43, choice);
-            cout << " ";
-            choice += 3;
-            MoveCursor(43, choice);
-            cout << ">";
-            break;
-        case 72:
-            MoveCursor(43, choice);
-            cout << " ";
-            choice -= 3;
-            MoveCursor(43, choice);
-            cout << ">";
-            break;
-        case 13:
-            if (choice == 18)
-            {
-                play(Maps->next);
-                return;
-            }
-            else if (choice == 21)
-            {
-                select(Maps);
-                return;
-            }
-            else if (choice == 24)
-            {
-                shuoming();
-                return;
-            }
-            else if (choice == 27)
-                exit(0);
-            break;
+            case 224:
+                key = getch();
+            case 80:
+                MoveCursor(43, choice);
+                cout << " ";
+                choice += 3;
+                MoveCursor(43, choice);
+                cout << ">";
+                break;
+            case 72:
+                MoveCursor(43, choice);
+                cout << " ";
+                choice -= 3;
+                MoveCursor(43, choice);
+                cout << ">";
+                break;
+            case 13:
+                if (choice == 18)
+                {
+                    play(Maps->next);
+                    return;
+                }
+                else if (choice == 21)
+                {
+                    select(Maps);
+                    return;
+                }
+                else if (choice == 24)
+                {
+                    shuoming();
+                    return;
+                }
+                else if (choice == 27)
+                    exit(0);
+                break;
         }
         if (choice > 27)
         {
@@ -201,30 +198,30 @@ Node* input()
                 p->next->map.y = strlen(t);
                 switch (t[i])
                 {
-                case '@':
-                    p->next->map.map[p->next->map.x][i] = 1;
-                    break;
-                case '+':
-                    p->next->map.map[p->next->map.x][i] = 2;
-                    break;
-                case '$':
-                    p->next->map.map[p->next->map.x][i] = 3;
-                    break;
-                case '*':
-                    p->next->map.map[p->next->map.x][i] = 4;
-                    break;
-                case '#':
-                    p->next->map.map[p->next->map.x][i] = 5;
-                    break;
-                case '.':
-                    p->next->map.map[p->next->map.x][i] = 6;
-                    break;
-                case '-':
-                    p->next->map.map[p->next->map.x][i] = 7;
-                    break;
-                case ' ':
-                    p->next->map.map[p->next->map.x][i] = 7;
-                    break;
+                    case '@':
+                        p->next->map.map[p->next->map.x][i] = 1;
+                        break;
+                    case '+':
+                        p->next->map.map[p->next->map.x][i] = 2;
+                        break;
+                    case '$':
+                        p->next->map.map[p->next->map.x][i] = 3;
+                        break;
+                    case '*':
+                        p->next->map.map[p->next->map.x][i] = 4;
+                        break;
+                    case '#':
+                        p->next->map.map[p->next->map.x][i] = 5;
+                        break;
+                    case '.':
+                        p->next->map.map[p->next->map.x][i] = 6;
+                        break;
+                    case '-':
+                        p->next->map.map[p->next->map.x][i] = 7;
+                        break;
+                    case ' ':
+                        p->next->map.map[p->next->map.x][i] = 7;
+                        break;
                 }
             }
             p->next->map.x++;
@@ -312,27 +309,27 @@ void print_map(MapData map)
         {
             switch (map.map[i][j])
             {
-            case 1:
-                cout << "♀";
-                break;
-            case 2:
-                cout << "@ ";
-                break;
-            case 3:
-                cout << "□";
-                break;
-            case 4:
-                cout << "★";
-                break;
-            case 5:
-                cout << "■";
-                break;
-            case 6:
-                cout << "×";
-                break;
-            case 7:
-                cout << "  ";
-                break;
+                case 1:
+                    cout << "♀";
+                    break;
+                case 2:
+                    cout << "@ ";
+                    break;
+                case 3:
+                    cout << "□";
+                    break;
+                case 4:
+                    cout << "★";
+                    break;
+                case 5:
+                    cout << "■";
+                    break;
+                case 6:
+                    cout << "×";
+                    break;
+                case 7:
+                    cout << "  ";
+                    break;
             }
         }
     }
@@ -585,7 +582,6 @@ bool check(MapData map, int x, int y)
 void select(Node* map)
 {
     map = input();
-    //map = map->next;
     system("cls");//先清屏
     //画框
     MoveCursor(31, 11);
@@ -726,13 +722,6 @@ void shuoming()
     system("pause");
 }
 
-// 入门使用技巧: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
 /**
  *                             _ooOoo_
  *                            o8888888o
