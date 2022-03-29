@@ -52,7 +52,7 @@ void shuoming()
     for (int i = 0; i < 48; i++)
         cout << "==";
     MoveCursor(2, 2 + 1);
-    for (int i = 1; i <= 17; i++)
+    for (int i = 1; i <= 18; i++)
     {
         cout << "||";
         for (int j = 0; j < 46; j++)
@@ -68,7 +68,33 @@ void shuoming()
     cout << "要求把木箱放到指定的位置，稍不小心就会出现箱子无法移动或者通道被堵住的情况，所以需要巧妙的利";
     MoveCursor(4, 6);
     cout<<"用有限的空间和通道，合理安排移动的次序和位置，才能顺利的完成任务。";
-    getchar();
+    MoveCursor(60, 8);
+    cout << "　　/\\　　　   ∠ /";
+    MoveCursor(60, 9);
+    cout << "　 /　│　　  ／　／";
+    MoveCursor(60, 10);
+    cout << "　│　   ＿,＜　／　    /`ヽ";
+    MoveCursor(60, 11);
+    cout << "　│　　　　　ヽ　　   /　　〉";
+    MoveCursor(60, 12);
+    cout << "　 Y　　　　　`　   /　　/";
+    MoveCursor(60, 13);
+    cout << "　ィ●　.　●　　O〈　　/";
+    MoveCursor(60, 14);
+    cout << "　()　 へ　　　　|　\\  〈";
+    MoveCursor(60, 15);
+    cout << "　 / へ　　 /　/＜|   \\  \\";
+    MoveCursor(60, 16);
+    cout << "　　>- 、_　 ィ　 │  ／／";
+    MoveCursor(60, 17);
+    cout << "　 / へ　　 /　/＜|  \\ \\";
+    MoveCursor(60, 18);
+    cout << "　 ヽ_/　　(_／　 │ ／／";
+    MoveCursor(60, 19);
+    cout << "　　7　　　　　　　|／";
+    MoveCursor(60, 20);
+    cout << "　　＞―r￣￣`-―＿丿";
+    MoveCursor(44, 27);
     system("pause");
 }
 /*
