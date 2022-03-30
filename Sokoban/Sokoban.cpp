@@ -365,7 +365,10 @@ void move(MapData* map)
         else if ((*map).map[x + 1][y] == 6)
         {
             (*map).map[x + 1][y] = 2;
-            (*map).map[x][y] = 7;
+            if ((*map).map[x][y] == 1)
+                (*map).map[x][y] = 7;
+            else if ((*map).map[x][y] == 2)
+                (*map).map[x][y] = 6;
         }
         else if ((*map).map[x + 1][y] == 3 && ((*map).map[x + 2][y] == 7 || (*map).map[x + 2][y] == 6))
         {
@@ -414,7 +417,10 @@ void move(MapData* map)
         else if ((*map).map[x - 1][y] == 6)
         {
             (*map).map[x - 1][y] = 2;
-            (*map).map[x][y] = 7;
+            if ((*map).map[x][y] == 1)
+                (*map).map[x][y] = 7;
+            else if ((*map).map[x][y] == 2)
+                (*map).map[x][y] = 6;
         }
         else if ((*map).map[x - 1][y] == 3 && ((*map).map[x - 2][y] == 7 || (*map).map[x - 2][y] == 6))
         {
@@ -463,7 +469,10 @@ void move(MapData* map)
         else if ((*map).map[x][y + 1] == 6)
         {
             (*map).map[x][y + 1] = 2;
-            (*map).map[x][y] = 7;
+            if ((*map).map[x][y] == 1)
+                (*map).map[x][y] = 7;
+            else if ((*map).map[x][y] == 2)
+                (*map).map[x][y] = 6;
         }
         else if ((*map).map[x][y + 1] == 3 && ((*map).map[x][y + 2] == 7 || (*map).map[x][y + 2] == 6))
         {
@@ -512,7 +521,10 @@ void move(MapData* map)
         else if ((*map).map[x][y - 1] == 6)
         {
             (*map).map[x][y - 1] = 2;
-            (*map).map[x][y] = 7;
+            if ((*map).map[x][y] == 1)
+                (*map).map[x][y] = 7;
+            else if ((*map).map[x][y] == 2)
+                (*map).map[x][y] = 6;
         }
         else if ((*map).map[x][y - 1] == 3 && ((*map).map[x][y - 2] == 7 || (*map).map[x][y - 2] == 6))
         {
