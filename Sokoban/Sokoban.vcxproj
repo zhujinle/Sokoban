@@ -141,6 +141,15 @@
   <ItemGroup>
     <ClCompile Include="Sokoban.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Sokoban.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="E:\FFOutput\21211880157.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
